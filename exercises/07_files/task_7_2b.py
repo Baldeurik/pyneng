@@ -15,5 +15,25 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+from sys import argv
 
 ignore = ["duplex", "alias", "configuration"]
+source = argv[1]
+dest_filename = argv[2]
+#file = input("Введите название файла: ")
+
+with open(source, 'r') as input:
+
+    with open(dest_filename, 'w') as output:
+        for line in input:
+            printer = True
+            for words in ignore:
+                if words in line:
+                    printer = False
+                    break
+
+            if '!' in line.strip('\n'):
+                printer = False
+            if printer:
+                #print(line.rstrip())
+                output.write(line.rstrip() + '\n')

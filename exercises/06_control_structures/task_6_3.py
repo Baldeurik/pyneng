@@ -74,6 +74,11 @@ trunk = {
     "0/7": ["only", "30"],
 }
 
+switching_trunk = {
+"add": "add",
+"del": "remove",
+"only": "",
+}
 # for intf, vlan in access.items():
 #     print("interface FastEthernet" + intf)
 #     for command in access_template:
@@ -81,4 +86,16 @@ trunk = {
 #             print(f" {command} {vlan}")
 #         else:
 #             print(f" {command}")
+for inter, actions in trunk.items():
+    print("interface FastEthernet" + inter)
+    #print(f"DEBUG = vlan_config = '{vlan_list}'")
+    for command in trunk_template[:-1]:
+        print(f" {command}")
+    action, *vlans = actions
+    vlan_action = switching_trunk.get(action, "")
+    vlan_list = ",".join(vlans)
 
+    if vlan_action:
+        print(f" {trunk_template[-1]} {vlan_action} {vlan_list}")
+    else:
+        print(f" {trunk_template[-1]} {vlan_list}")

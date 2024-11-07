@@ -15,19 +15,16 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-file = "C:/Users/user/Documents/GitHub/pyneng/exercises/07_files/config_sw1.txt"
+from sys import argv
 
 ignore = ["duplex", "alias", "configuration"]
-#file = input("Введите название файла: ")
-with open(file, 'r') as f:
-    for line in f:
-        printer = True
-        for words in ignore:
-            if words in line:
-                printer = False
-                break
 
-        if '!' in line.strip('\n'):
-            printer = False
-        if printer:
+filename = argv[1]
+
+with open(filename) as f:
+    for line in f:
+        words = line.split()
+        words_intersect = set(words) & set(ignore)
+        if not line.startswith("!") and not words_intersect:
             print(line.rstrip())
+

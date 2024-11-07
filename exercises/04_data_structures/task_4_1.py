@@ -14,5 +14,8 @@
 проверять результат.
 
 """
+nat = "ip nat inside source list ACL interface FastEthernet0/1 overload" # Заменить Fe на GigabitEthernet
 
-nat = "ip nat inside source list ACL interface FastEthernet0/1 overload"
+replaced = nat.replace('FastEthernet', 'GigabitEthernet')
+
+print(replaced)

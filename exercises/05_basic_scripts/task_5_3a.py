@@ -13,15 +13,67 @@ VLANа или списка VLANов:
 """
 
 access_template = [
-    "switchport mode access",
-    "switchport access vlan {}",
-    "switchport nonegotiate",
-    "spanning-tree portfast",
-    "spanning-tree bpduguard enable",
+
+"switchport mode access", "switchport access vlan {}",
+
+"switchport nonegotiate", "spanning-tree portfast",
+
+"spanning-tree bpduguard enable"
+
 ]
 
+  
+
 trunk_template = [
-    "switchport trunk encapsulation dot1q",
-    "switchport mode trunk",
-    "switchport trunk allowed vlan {}",
+
+"switchport trunk encapsulation dot1q", "switchport mode trunk",
+
+"switchport trunk allowed vlan {}"
+
 ]
+
+  
+
+templates = {
+
+"access": access_template,
+
+ "trunk": trunk_template
+
+}
+
+  
+
+vlan_response = {
+
+"access": "Введите номер VLAN: ",
+
+"trunk": "Введите разрешенные VLANы: "
+
+}
+
+  
+
+status = input("Ввести режим работы интерфейса (access/trunk): ")
+
+interface = input("Ввести тип и номер интерфейса: ")
+
+vlan_number = input(vlan_response.get(status))
+
+  
+
+selected_template = templates.get(status)
+
+  
+
+#status_prompt = print(status)
+
+# '\n'.join(templates[status])
+
+print(f"interface {interface}")
+
+print(
+
+'\n'.join(selected_template).format(vlan_number)
+
+)

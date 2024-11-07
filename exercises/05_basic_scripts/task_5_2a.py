@@ -49,3 +49,41 @@ bin_ip = "00001010000000010000000111000011"
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+network = input("Введите адрес сети: ")
+
+ip, mask = network.split("/")
+ip_list = list(map(int, ip.split(".")))
+mask = int(mask)
+
+bin_ip = f"{ip_list[0]:08b}{ip_list[1]:08b}{ip_list[2]:08b}{ip_list[3]:08b}"
+
+network_bin = bin_ip[:mask] + "0" * (32 - mask)
+
+net_oct1 = int(network_bin[0:8], 2)
+net_oct2 = int(network_bin[8:16], 2)
+net_oct3 = int(network_bin[16:24], 2)
+net_oct4 = int(network_bin[24:32], 2)
+
+bin_mask = "1" * mask + "0" * (32 - mask)
+m1, m2, m3, m4 = [
+    int(bin_mask[0:8], 2),
+    int(bin_mask[8:16], 2),
+    int(bin_mask[16:24], 2),
+    int(bin_mask[24:32], 2),
+]
+
+ip_output = f"""
+Network:
+{net_oct1:<10}{net_oct2:<10}{net_oct3:<10}{net_oct4:<10}
+{net_oct1:08b}  {net_oct2:08b}  {net_oct3:08b}  {net_oct4:08b}
+"""
+
+mask_output = f"""
+Mask:
+/{mask}
+{m1:<10}{m2:<10}{m3:<10}{m4:<10}
+{m1:08b}  {m2:08b}  {m3:08b}  {m4:08b}
+"""
+
+print(ip_output)
+print(mask_output)

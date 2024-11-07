@@ -19,6 +19,18 @@
 Это не значит, что задание сделано правильно, просто на данном этапе сложно иначе
 проверять результат.
 """
-
 command1 = "switchport trunk allowed vlan 1,2,3,5,8"
 command2 = "switchport trunk allowed vlan 1,3,8,9"
+
+list(command1)
+list(command2)
+
+result = []
+
+for i in command1.split()[-1].split(','):
+
+    if i in command2.split()[-1].split(','):
+
+        result.append(i)
+
+print(result)

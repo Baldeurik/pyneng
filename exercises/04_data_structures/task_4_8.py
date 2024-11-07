@@ -26,3 +26,11 @@
 """
 
 ip = "192.168.3.1"
+
+iplisted = ip.replace('.', ' ').split()
+
+print('{:<10}{:<10}{:<10}{:<10}'.format(iplisted[0], iplisted[1], iplisted[2], iplisted[3]))
+
+tobin = '{:08b}  {:08b}  {:08b}  {:08b}'.format(int(iplisted[0]), int(iplisted[1]), int(iplisted[2]), int(iplisted[3]))
+
+print(tobin)

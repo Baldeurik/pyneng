@@ -20,5 +20,8 @@
 Это не значит, что задание сделано правильно, просто на данном этапе сложно иначе
 проверять результат.
 """
-
 config = "switchport trunk allowed vlan 1,3,10,20,30,100"
+
+result = config.split()[-1].split(',')
+
+print(result)

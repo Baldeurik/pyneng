@@ -30,3 +30,41 @@ Out[1]: '11111111111111111111111111110000'
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+ip = input("Network: ")
+
+print("Network:\n")
+iplisted = ip.replace('.', ' ').replace('/', ' ').split()
+
+print('{:<10}{:<10}{:<10}{:<10}'.format(iplisted[0], iplisted[1], iplisted[2], iplisted[3]))
+
+tobin = '{:08b}  {:08b}  {:08b}  {:08b}'.format(int(iplisted[0]), int(iplisted[1]), int(iplisted[2]), int(iplisted[3]))
+
+print(f"{tobin}\n\n")
+print("Mask:\n/" '{:<10}'.format(iplisted[4]))
+
+
+  
+
+calculatemaskend = 32 - int(iplisted[4])
+
+calculatemask = "1" * int(iplisted[4]) + "0" * calculatemaskend
+
+binarymask = '{:08b}  {:08b}  {:08b}  {:08b}'.format(
+
+   int(calculatemask[0:8], 2),
+   int(calculatemask[8:16], 2),
+   int(calculatemask[16:24], 2),
+   int(calculatemask[24:32], 2))
+
+decimalmask = '{:<10}{:<10}{:<10}{:<10}'.format(
+
+  int(calculatemask[0:8], 2),
+  int(calculatemask[8:16], 2),
+  int(calculatemask[16:24], 2),
+  int(calculatemask[24:32], 2)
+
+)
+
+print(decimalmask)
+
+print(binarymask)

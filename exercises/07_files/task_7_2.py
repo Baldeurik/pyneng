@@ -39,3 +39,13 @@ interface Ethernet0/3
 ...
 
 """
+
+file = "C:/Users/user/Documents/GitHub/pyneng/exercises/07_files/config_sw1.txt"
+
+with open(file, 'r') as f:
+
+    for line in f:
+
+        if '!' not in line.strip('\n'):
+
+            print(line.rstrip())
