@@ -67,37 +67,15 @@ def ignore_command(command, ignore):
 
 
 def convert_config_to_dict(config_filename):
-    conf_dict = {}
-    current_command = None
-    current_subcommands = []
-    with open(config_filename, 'r') as file:
-        for line in file:
-            if ignore_command(line, ignore):
-                continue
-            if line.startswith('!'):
-                continue
-            if not line.startswith(' '):
-                if current_command:
-                    '''
-                    Задавать эту переменную нужно было для того, чтобы хранить в неё информацию. 
-                    В этом условии проверяется, начинается ли строка с пробела, если нет, записывается в переменную current_command и задает формат в котором она будет обрабатываться
+    config_dict = {}
+    with open(config_filename) as f:
+        for line in f:
+            line = line.rstrip()
+            if line and not (line.startswith("!") or ignore_command(line, ignore)):
+                if line[0].isalnum():
+                    section = line
+                    config_dict[section] = []
+                else:
+                    config_dict[section].append(line.strip())
+    return config_dict
 
-                    Вне этого условия продолжается обработка строк, который начинаются с пробела.
-                    '''
-                    conf_dict[current_command] = current_subcommands
-                
-                current_command = ' '.join(line.split()[:5]) 
-                current_subcommands = [] 
-
-            else:
-                line = line.strip() 
-                if line:
-                    current_subcommands.append(line)
-
-        if current_command:
-            conf_dict[current_command] = current_subcommands if current_subcommands else []
-
-    return conf_dict
-
-dic = convert_config_to_dict('C:/Users/user/Documents/GitHub/pyneng/exercises/09_functions/config_sw1.txt')
-print(dic)
