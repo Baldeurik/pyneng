@@ -36,15 +36,34 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 
 def parse_cdp_neighbors(command_output):
-    """
-    Тут мы передаем вывод команды одной строкой потому что именно в таком виде будет
-    получен вывод команды с оборудования. Принимая как аргумент вывод команды,
-    вместо имени файла, мы делаем функцию более универсальной: она может работать
-    и с файлами и с выводом с оборудования.
-    Плюс учимся работать с таким выводом.
-    """
+    lines = command_output.strip().split('\n')
+    cdp_dict = {}
+
+    # Извлекаем имя локального устройства из первой строки
+    local_device = lines[0].split('>')[0]
+    # Обрабатываем строки с информацией о соседях
+    if local_device == "SW1":
+        for line in lines[6:]:
+            parts = line.split()
+            local_int = parts[1] + parts[2]
+            remote_device_id = parts[0]
+            remote_port_id = parts[-2] + parts[-1]
+            # Ключ: (локальное устройство, локальный интерфейс), значение: (удалённое устройство, удалённый интерфейс)
+            cdp_dict[(local_device, local_int)] = (remote_device_id, remote_port_id)
+    else:
+        for line in lines[5:]:
+            parts = line.split()
+            local_int = parts[1] + parts[2]
+            remote_device_id = parts[0]
+            remote_port_id = parts[-2] + parts[-1]
+                # Ключ: (локальное устройство, локальный интерфейс), значение: (удалённое устройство, удалённый интерфейс)
+            cdp_dict[(local_device, local_int)] = (remote_device_id, remote_port_id)
+
+    return cdp_dict
 
 
 if __name__ == "__main__":
-    with open("sh_cdp_n_sw1.txt") as f:
-        print(parse_cdp_neighbors(f.read()))
+    with open("exercises/11_modules/sh_cdp_n_sw1.txt") as f:
+        command_output = f.read()
+        result = parse_cdp_neighbors(command_output)
+        print(result)

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import graphviz
+import task_11_2 as create_network_map
 """
 Задание 11.2a
 
@@ -74,9 +76,14 @@
 
 """
 
+
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+topology = create_network_map(infiles)
+topology = {}
+print(topology)
