@@ -53,4 +53,3 @@ infiles = [
 ]
 
 network_map = create_network_map(infiles)
-print(network_map)
