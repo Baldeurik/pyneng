@@ -86,25 +86,22 @@ infiles = [
     "sh_cdp_n_r3.txt",
 ]
 
-def remove_duplicates_with_sets(topology_dict):
+def unique_network_map(topology_dict):
+    '''
+    Используется set, для исключения повторов, после результат заносится в словарь, который
+    '''
     seen_links = set()
     filtered_dict = {}
-    
+
     for local, remote in topology_dict.items():
         link = tuple(sorted([local, remote]))
         if link not in seen_links:
             seen_links.add(link)
             filtered_dict[local] = remote
-    
+
     return filtered_dict
-    
 
-topology_dict = task_11_2.create_network_map(infiles)
-
-filtered_topology = remove_duplicates_with_sets(topology_dict)
-
-def unique_network_map(filtered_topology):
-    draw_network_graph.draw_topology(filtered_topology)
-    return
-
-unique_network_map(filtered_topology)
+if __name__ == "__main__":
+    topology_dict = task_11_2.create_network_map(infiles)
+    filtered_topology = unique_network_map(topology_dict)
+    print(filtered_topology)
